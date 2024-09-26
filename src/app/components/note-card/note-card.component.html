@@ -1,0 +1,60 @@
+<!-- <div class="div1">
+    <h3>{{noteDetails.Title}}</h3>
+    <p>{{noteDetails.Description}}</p>
+    <abbr title="Remind Me"><mat-icon svgIcon="reminder-icon" aria-hidden="false" aria-label="collaborator icon"></mat-icon></abbr>
+    <abbr title="Collaborator"><mat-icon svgIcon="collaborator-icon" aria-hidden="false" aria-label="collaborator icon"></mat-icon></abbr>
+    <abbr title="Background options"><mat-icon svgIcon="color-palatte-icon" aria-hidden="false" aria-label="collaborator icon"></mat-icon></abbr>
+    <abbr title="Add image"><mat-icon svgIcon="img-icon" aria-hidden="false" aria-label="collaborator icon"></mat-icon></abbr>
+    
+    
+    <abbr title="Archive" (click)="onArchiveClick()">
+        <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="archive icon"></mat-icon>
+    </abbr>
+    
+    <abbr title="More"><mat-icon svgIcon="more-icon" aria-hidden="false" aria-label="collaborator icon"></mat-icon></abbr>
+</div> -->
+
+<div class="task-main-cnt">
+    <span>{{noteDetails.Title}}</span>
+    <span>{{noteDetails.Description}}</span>
+    <div class="icons-cnt">
+      <mat-icon
+        svgIcon="reminder-icon"
+        aria-hidden="false"
+        aria-label="reminder icon"
+      ></mat-icon>
+  
+      <mat-icon
+        svgIcon="collabrator-icon"
+        aria-hidden="false"
+        aria-label="collabrator icon"
+      ></mat-icon>
+      <mat-icon
+        svgIcon="color-palatte-icon"
+        aria-hidden="false"
+        aria-label="color pallat icon"
+      ></mat-icon>
+      <mat-icon
+        svgIcon="img-icon"
+        aria-hidden="false"
+        aria-label="image icon"
+      ></mat-icon>
+      <mat-icon
+        svgIcon="archive-icon"
+        aria-hidden="false"
+        aria-label="archive icon"
+        (click)="onArchiveClick()"
+      ></mat-icon>
+      <mat-icon
+        svgIcon="more-icon"
+        aria-hidden="false"
+        aria-label="more icon"
+      ></mat-icon>
+      <mat-icon
+        svgIcon="delete-forever-icon"
+        aria-hidden="false"
+        aria-label="delete forever icon"
+        (click)="onDeleteClick()"
+      ></mat-icon>
+    </div>
+  </div>
