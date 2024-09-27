@@ -1,6 +1,7 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http-service/http.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class NotesService {
     return this.http.putApiCall(`${endPoint}/achive/${noteId}`, {isarchive: true});
   }
 
-  trashNoteById(endPoint: string, noteId: string) {
-    return this.http.putApiCall(`${endPoint}/trash/${noteId}`, {});
+  trashNoteById(noteId: string):Observable<any> {
+    return this.http.putApiCall(`router/delete/${noteId}`, {isdeleted: true});
   }
 }

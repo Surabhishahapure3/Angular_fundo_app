@@ -2,26 +2,30 @@
   <h1>Fundo</h1>
   <h2>Sign In</h2>
   <p>Use your Fundo Account</p>
-  <div class="form">
+  <form class="form" [formGroup]="loginForm">
     <mat-form-field appearance="outline">
       <mat-label>Email or Phone*</mat-label>
       <!-- <input [(ngModel)]="email" -->
-       <input type = "email"
+       <input formControlName="email" type = "email"
         matInput
         class="matInput"
       />
     </mat-form-field>
+    <mat-error *ngIf="submitted && loginControls['email']?.hasError('required')">Email required</mat-error>
+    <mat-error *ngIf="submitted && loginControls['email']?.hasError('email')">Incorrect email</mat-error>
 
     <mat-form-field  appearance="outline" >
       <mat-label>Password*</mat-label>
 
       <!-- <input [(ngModel)]="password" -->
-       <input type = "password"
+       <input formControlName="password" type = "password"
         matInput
         type="password"
         class="matInput"
       />
     </mat-form-field>
+    <mat-error *ngIf="submitted && loginControls['password']?.hasError('required')">Password required</mat-error>
+    <mat-error *ngIf="submitted && loginControls['password']?.hasError('password')">Incorrect password</mat-error>
 
     <a href="#" class="forgot-password">Forgot Password?</a>
 
@@ -29,7 +33,7 @@
       <button class="create-account">Create Account</button>
       <button class="login" (click)="handleLogin()">Login</button>
     </div>
-</div>
+</form>
 </div>
 
 <div class="footer">

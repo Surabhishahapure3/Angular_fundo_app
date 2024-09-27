@@ -51,10 +51,10 @@ export class NotesComponent implements OnInit {
   }
 
   onDeleteNote(noteId: string) {
-    this.noteService.deleteNoteById('router/delete', noteId).subscribe({
+    this.noteService.trashNoteById(noteId).subscribe({
       next: () => {
         console.log('Note deleted successfully');
-        this.notesList = this.notesList.filter(note => note.id !== noteId);  
+        this.notesList = this.notesList.filter(note => note._id !== noteId);  
       },
       error: (err) => {
         console.log('Error deleting note:', err);
