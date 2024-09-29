@@ -39,6 +39,10 @@ export class NotesComponent implements OnInit {
     console.log(noteId);
     this.noteService.archiveNoteById('router', noteId).subscribe({
       next: () => {
+        const noteToArchive = this.notesList.find(note => note._id === noteId);
+      if (noteToArchive) {
+        noteToArchive.isArchive = true;
+      }
         console.log('Note archived successfully');
         this.notesList = this.notesList.filter(note => note._id !== noteId);
       

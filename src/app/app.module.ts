@@ -20,6 +20,7 @@ import { ArchieveComponent } from './components/archieve/archieve.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { AddnoteComponent } from './components/addnote/addnote.component';
 import { NewNoteComponent } from './components/new-note/new-note.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NewNoteComponent } from './components/new-note/new-note.component';
     HttpClientModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]   //when it loads which component to be loaded

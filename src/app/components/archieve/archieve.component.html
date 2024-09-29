@@ -1,3 +1,10 @@
-<p>archieve work
-    
-</p>
+<div class="archive-container">
+    <h2>Archived Notes</h2>
+    <div *ngFor="let note of archivedNotesList" class="archived-note">
+      <h3>{{ note.Title }}</h3> 
+      <p>{{ note.Description }}</p> 
+      <button (click)="onDeleteArchivedNote(note._id)">Delete</button>
+      <button (click)="unArchivedNote(note._id)">Unarchive</button>
+    </div>
+  </div>
+  

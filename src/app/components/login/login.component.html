@@ -5,28 +5,28 @@
   <form class="form" [formGroup]="loginForm">
     <mat-form-field appearance="outline">
       <mat-label>Email or Phone*</mat-label>
-      <!-- <input [(ngModel)]="email" -->
+     
        <input formControlName="email" type = "email"
         matInput
         class="matInput"
       />
-    </mat-form-field>
-    <mat-error *ngIf="submitted && loginControls['email']?.hasError('required')">Email required</mat-error>
+      <mat-error *ngIf="submitted && loginControls['email']?.hasError('required')">Email required</mat-error>
     <mat-error *ngIf="submitted && loginControls['email']?.hasError('email')">Incorrect email</mat-error>
+    </mat-form-field>
+    
 
     <mat-form-field  appearance="outline" >
       <mat-label>Password*</mat-label>
 
-      <!-- <input [(ngModel)]="password" -->
        <input formControlName="password" type = "password"
         matInput
         type="password"
         class="matInput"
       />
+      <mat-error *ngIf="submitted && loginControls['password']?.hasError('required')">Password required</mat-error>
+      <mat-error *ngIf="submitted && loginControls['password']?.hasError('minlength')">Password must be at least 8 characters</mat-error>
     </mat-form-field>
-    <mat-error *ngIf="submitted && loginControls['password']?.hasError('required')">Password required</mat-error>
-    <mat-error *ngIf="submitted && loginControls['password']?.hasError('password')">Incorrect password</mat-error>
-
+<br>
     <a href="#" class="forgot-password">Forgot Password?</a>
 
     <div class="button-group">
@@ -49,4 +49,3 @@
   </div>
 </div> 
 
-<!-- <span>{{email}}</span> -->

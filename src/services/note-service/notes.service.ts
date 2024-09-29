@@ -33,4 +33,8 @@ export class NotesService {
   trashNoteById(noteId: string):Observable<any> {
     return this.http.putApiCall(`router/delete/${noteId}`, {isdeleted: true});
   }
+
+  unArchiveNotes(noteData: any): Observable<any> {
+    return this.http.putApiCall(`router/achive`, noteData);
+  }
 }

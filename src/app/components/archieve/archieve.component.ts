@@ -8,31 +8,68 @@ import { NotesService } from 'src/services/note-service/notes.service';
 })
 export class ArchieveComponent implements OnInit {
 
-  archivedNotes :any[] = [];
+  
+  archivedNotesList: any[] = [];
 
   constructor(private noteService:NotesService){}
 
   ngOnInit(){
-    this.fetchArchieves();
+    this.fetchArchivedNotes();
   }
 
-  fetchArchieves(){
-    this.noteService.getNotesApiCall('router/achive').subscribe((response:any)=>{
-      this.archivedNotes = response;
-    })
-  }
-
-  restoreNote(noteId: string) {
-    this.noteService.archiveNoteById('router/achive', noteId)
-      .subscribe(
-        response => {
-          console.log('Note restored successfully:', response);
-          this.fetchArchieves(); 
-        },
-        error => {
-          console.error('Error restoring note:', error);
+  fetchArchivedNotes(): void {
+    this.noteService.getNotesApiCall('router/all').subscribe({
+      next: (res: any) => {
+        console.log('Response from API:', res.data); 
+        
+       /*
+        if (Array.isArray(res.data) && res.data.length > 0) {
+         
+          res.data.forEach((note: any) => {
+            console.log('Note:', note); 
+          });
+        } else {
+          console.log('No notes found in the response.');
         }
-      );
+  */
+       
+        this.archivedNotesList = res.data.filter((note: { isarchive: any; }) => note.isarchive); 
+        this.archivedNotesList.forEach(note => {
+          console.log('Archived Note:', note.Title, note.Description);
+        });
+        console.log('Archived notes:', this.archivedNotesList); 
+      },
+      error: (err) => {
+        console.log('Error fetching notes:', err);
+      }
+    });
+  }
+  
+
+  onDeleteArchivedNote(noteId: string) {
+    this.noteService.trashNoteById(noteId).subscribe({
+      next: () => {
+        console.log('Archived note deleted successfully');
+        this.archivedNotesList = this.archivedNotesList.filter(note => note._id !== noteId);
+      },
+      error: (err) => {
+        console.log('Error deleting archived note:', err);
+      }
+    });
+  }
+  
+  unArchivedNote(noteId: string) {
+    this.noteService.updateNoteById('router/achive',noteId, { isarchive: false }).subscribe({
+      next: () => {
+        console.log('Note unarchived successfully');
+        console.log("unarchive",this.archivedNotesList)
+        this.archivedNotesList = this.archivedNotesList.filter(note => note._id !== noteId);
+        console.log(this.archivedNotesList)
+      },
+      error: (err) => {
+        console.log('Error unarchiving note:', err);
+      }
+    });
   }
 
 }
