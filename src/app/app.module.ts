@@ -20,7 +20,11 @@ import { ArchieveComponent } from './components/archieve/archieve.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { AddnoteComponent } from './components/addnote/addnote.component';
 import { NewNoteComponent } from './components/new-note/new-note.component';
+import { MatMenuModule } from '@angular/material/menu';
+// import { SearchPipe } from './pipe/search.pipe';
+
 import { MatCardModule } from '@angular/material/card';
+import { TrimPipe } from './pipe/trim.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { MatCardModule } from '@angular/material/card';
     ArchieveComponent,
     TrashComponent,
     AddnoteComponent,
-    NewNoteComponent
+    NewNoteComponent,
+    TrimPipe
   ],
   imports: [
     BrowserModule,
@@ -46,8 +51,11 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    MatMenuModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatIconModule,
+    MatCardModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]   //when it loads which component to be loaded
