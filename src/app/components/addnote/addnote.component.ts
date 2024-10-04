@@ -18,6 +18,7 @@ export class AddnoteComponent implements OnInit {
   id:string = "";
   showTakeNote: boolean = true;
   isExpanded: boolean = true;
+  errorMessage: string | undefined;
   constructor(@Optional() public dialogRef: MatDialogRef<AddnoteComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: {noteDetails:any},iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private noteService: NotesService) {
     iconRegistry.addSvgIconLiteral('list-view', sanitizer.bypassSecurityTrustHtml(LIST_VIEW_ICON));
     iconRegistry.addSvgIconLiteral('brush', sanitizer.bypassSecurityTrustHtml(BRUSH_ICON));
