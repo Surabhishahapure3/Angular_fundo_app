@@ -43,9 +43,12 @@ export class LoginComponent implements OnInit {
             const token = res.data.token;
             if (token) {
               localStorage.setItem("accessToken", token);
-              localStorage.setItem('name', res?.data?.firstName);
-            localStorage.setItem('email', res?.data?.email);
+              localStorage.setItem('name', res.data.fstname);
+            localStorage.setItem('email', res.data.eml);
+            // console.log("login name",name);
+            // console.log("login email",email)
             // this.router.navigate(['/notes']);
+            // console.log("data",res.data)
               console.log('Token stored in localStorage:', token);
               this.router.navigate(['/notes']);
             } else {
