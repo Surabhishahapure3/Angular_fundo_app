@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { DashboardContaineerComponent } from './components/dashboard-containeer/dashboard-containeer.component'
+import { DashboardContainerComponent } from './components/dashboard-containeer/dashboard-container.component'
 import { NotesComponent} from './components/notes/notes.component'
-import { ArchieveComponent } from './components/archieve/archieve.component'
-import { TrashComponent } from './components/trash/trash.component'
+import { ArchieveContainerComponent } from './components/archieve/archieve.component'
+import { TrashContainerComponent } from './components/trash-container/trash-container.component'
 
 const routes: Routes = [
   { 
@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   { 
     path:'', 
-    component:DashboardContaineerComponent,
+    component:DashboardContainerComponent,
   children: [
     {
       path:"notes",
@@ -26,11 +26,11 @@ const routes: Routes = [
     },
     {
       path:"archive",
-      component:ArchieveComponent
+      component:ArchieveContainerComponent
     },
     {
       path:"trash",
-      component:TrashComponent
+      component:TrashContainerComponent
     },
   ]
   }

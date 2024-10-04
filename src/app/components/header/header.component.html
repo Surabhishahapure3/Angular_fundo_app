@@ -8,14 +8,17 @@
       <h3>Google Keep</h3>
     </div>
     <div class="mid-cnt">
-        <div class="sch">
-        <mat-icon
+      <input
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        (input)="handleSearchQuery()"
+      />
+      <mat-icon
         svgIcon="search-icon"
         aria-hidden="false"
         aria-label="search icon"
       ></mat-icon>
-      <input type="text" id="inp1" placeholder="Search">
-    </div>
     </div>
     <div class="right-cnt">
         <mat-icon
@@ -32,7 +35,23 @@
         aria-label="search icon"
       ></mat-icon>
       
-      <P>Google app</P>
-      <P>User</P>
+      <!-- <img class="googleapp" src="./googlapp.png" alt="googleapp" /> -->
+       <p class="googleapp">google account</p>
+        <div
+          class="profile-container"
+          (mouseenter)="showProfile = true"
+          (mouseleave)="showProfile = false"
+        >
+          <div class="user-initial">{{ userName[0] | uppercase }}</div>
+          <div class="profile-dropdown" *ngIf="showProfile">
+            <p>Google Account</p>
+            <p>{{ userName }}</p>
+            <p>{{ userEmail }}</p>
+            <button (click)="logout()">Logout</button>
+          </div>
+        </div>
     </div>
-</div>
+
+
+
+    

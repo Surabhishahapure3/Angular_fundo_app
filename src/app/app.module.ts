@@ -13,10 +13,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { NoteCardComponent } from './components/note-card/note-card.component';
 import {MatIconModule} from '@angular/material/icon';
 import { HeaderComponent } from './components/header/header.component';
+import { MatSidenavModule } from '@angular/material/sidenav'; 
 // import { DashboardContaineerComponent } from './components/dashboard-containeer/dashboard-containeer.component';
 import { NotesComponent } from './components/notes/notes.component';
-import { DashboardContaineerComponent } from './components/dashboard-containeer/dashboard-containeer.component';
-import { ArchieveComponent } from './components/archieve/archieve.component';
+import { DashboardContainerComponent } from './components/dashboard-containeer/dashboard-container.component';
+import { ArchieveContainerComponent } from './components/archieve/archieve.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { AddnoteComponent } from './components/addnote/addnote.component';
 import { NewNoteComponent } from './components/new-note/new-note.component';
@@ -25,6 +26,8 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { MatCardModule } from '@angular/material/card';
 import { TrimPipe } from './pipe/trim.pipe';
+import { TrashContainerComponent } from './components/trash-container/trash-container.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -34,12 +37,13 @@ import { TrimPipe } from './pipe/trim.pipe';
     NoteCardComponent,
     HeaderComponent,
     NotesComponent,
-    DashboardContaineerComponent,
-    ArchieveComponent,
+    DashboardContainerComponent,
+    ArchieveContainerComponent,
     TrashComponent,
     AddnoteComponent,
     NewNoteComponent,
-    TrimPipe
+    TrimPipe,
+    TrashContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -49,15 +53,17 @@ import { TrimPipe } from './pipe/trim.pipe';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    MatSidenavModule,
     MatIconModule,
     FormsModule,
     MatMenuModule,
     ReactiveFormsModule,
     MatIconModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]   //when it loads which component to be loaded
+  providers: [],   
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }

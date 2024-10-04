@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { DataService } from 'src/services/data-service/data.service';
 import { NotesService } from 'src/services/note-service/notes.service';
 
 @Component({
@@ -8,61 +10,64 @@ import { NotesService } from 'src/services/note-service/notes.service';
 })
 export class NotesComponent implements OnInit {
   notesList: any[] = [];
+  searchQuery: string = '';
+  subscription!: Subscription;
+  
 
-  constructor(private noteService: NotesService) {}
+  constructor(private noteService: NotesService,private dataService: DataService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('accessToken');
     console.log('JWT from local storage:', token);
     this.fetchNotes();
+    this.dataService.curSearchQuery.subscribe({
+      next: (data) => {
+        this.searchQuery = data;
+      },
+    });
   }
 
   fetchNotes(): void {
     this.noteService.getNotesApiCall('router/all').subscribe({
       next: (res: any) => {
-        console.log(res.data);
-        this.notesList = res.data;
+        this.notesList = res.data.filter(
+          (note: any) => !note.isArchive && !note.isTrash
+        );
       },
-      error: (err) => {
+      error: (err: any) => {
         console.log(err);
       }
     });
   }
 
   handleUpdateNotesList($event: { action: string; data: any }) {
-    console.log($event);
-    this.notesList = [$event.data, ...this.notesList];
+    if ($event.action === 'add') {
+      // Add a new note to the list
+      this.notesList = [$event.data, ...this.notesList];
+    } 
+    else if ($event.action === 'archive' || $event.action === 'trash') {
+      // Remove archived or trashed notes
+      this.notesList = this.notesList.filter(
+        (note) => note._id !== $event.data._id
+      );
+    } 
+    else if ($event.action === 'color' || $event.action === 'edit') {
+      this.notesList = this.notesList.map(
+        (note) => {
+          if(note._id === $event.data._id){
+            return $event.data;
+          }
+          return note;
+        }
+      );
+    }
   }
 
-  // Method to handle the archived note
-  onArchiveNote(noteId: string) {
-    console.log(noteId);
-    this.noteService.archiveNoteById('router', noteId).subscribe({
-      next: () => {
-        const noteToArchive = this.notesList.find(note => note._id === noteId);
-      if (noteToArchive) {
-        noteToArchive.isArchive = true;
-      }
-        console.log('Note archived successfully');
-        this.notesList = this.notesList.filter(note => note._id !== noteId);
-      
-      console.log('Updated notes list:', this.notesList);
-      },
-      error: (err) => {
-        console.log('Error archiving note:', err);
-      }
-    });
-  }
+  
 
-  onDeleteNote(noteId: string) {
-    this.noteService.trashNoteById(noteId).subscribe({
-      next: () => {
-        console.log('Note deleted successfully');
-        this.notesList = this.notesList.filter(note => note._id !== noteId);  
-      },
-      error: (err) => {
-        console.log('Error deleting note:', err);
-      }
-    });
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

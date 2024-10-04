@@ -1,4 +1,6 @@
 <app-addnote (updateList)="handleUpdateNotesList($event)"></app-addnote>
-<div *ngFor="let noteObj of notesList">
-    <app-note-card [noteDetails]="noteObj" (archiveNote)="onArchiveNote($event)" (deleteNote)="onDeleteNote($event)"></app-note-card>
-</div> 
+<div *ngFor="let noteObj of notesList | trim : searchQuery">
+    <app-note-card [container]="'notes'" [noteDetails]="noteObj"
+    (updateList)="handleUpdateNotesList($event)"
+    ></app-note-card>
+</div>

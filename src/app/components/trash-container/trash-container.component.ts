@@ -1,27 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NotesService } from 'src/services/note-service/notes.service';
-import { Subscription } from 'rxjs';
-import { DataService } from 'src/services/data-service/data.service';
 
 @Component({
-  selector: 'app-archieve',
-  templateUrl: './archieve.component.html',
-  styleUrls: ['./archieve.component.scss']
+  selector: 'app-trash-container',
+  templateUrl: './trash-container.component.html',
+  styleUrls: ['./trash-container.component.scss']
 })
-export class ArchieveContainerComponent implements OnInit {
+export class TrashContainerComponent {
   notesList: any[] = [];
-  searchQuery: string = '';
-  subscription!: Subscription;
-  
-  constructor(private noteService: NotesService, private dataService:DataService) { }
+  constructor(private noteService: NotesService) { }
 
   ngOnInit(): void {
     this.fetchArchivedNotes();
-    this.dataService.curSearchQuery.subscribe({
-      next: (data) => {
-        this.searchQuery = data;
-      },
-    });
   }
 
   fetchArchivedNotes(): void {
@@ -53,14 +43,11 @@ export class ArchieveContainerComponent implements OnInit {
   }
 
   handleUpdateNotesList($event: { action: string, data: any }) {
-    console.log($event);
-    if ($event.action === 'unarchive') {
+    if ($event.action === 'restore') {
       this.notesList = this.notesList.filter(note => note._id !== $event.data._id);
     }
-  }
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    else if($event.action==='deleteForever'){
+      this.notesList = this.notesList.filter(note=>note._id !== $event.data._id)
     }
   }
 }

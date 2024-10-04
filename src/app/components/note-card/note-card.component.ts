@@ -1,8 +1,11 @@
-import { Component,Input,OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import {ARCHIVE_ICON,COLLABRATOR_ICON,COLOR_PALATTE_ICON,DELETE_FOREVER_ICON,IMG_ICON,MORE_ICON,SEARCH_ICON,REMINDER_ICON,RESTORE_ICON,UNARCHIVE_ICON
+} from 'src/assets/svg-icons';
 import { NotesService } from 'src/services/note-service/notes.service';
-import { REMINDER_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, ARCHIVE_ICON, MORE_ICON, DELETE_FOREVER_ICON, RESTORE_ICON, UNARCHIVE_ICON, IMG_ICON,SEARCH_ICON } from '../../../assets/svg-icons';  // Adjust based on component location
+import { AddnoteComponent } from '../addnote/addnote.component';
 
 
 
@@ -13,9 +16,13 @@ import { REMINDER_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, ARCHIVE_ICON, MORE
 })
 export class NoteCardComponent implements OnInit{
   @Input() noteDetails: any = {};
-  @Output() archiveNote = new EventEmitter<string>();
-  @Output() deleteNote: EventEmitter<any> = new EventEmitter();
-  constructor( iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private notesService:NotesService) {
+  @Input() container : string ="notes";
+  @Output() updateList = new EventEmitter();
+  // dialog: any;
+  constructor( private notesService: NotesService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    private dialog: MatDialog) {
     iconRegistry.addSvgIconLiteral('reminder-icon', sanitizer.bypassSecurityTrustHtml(REMINDER_ICON));
     iconRegistry.addSvgIconLiteral('search-icon', sanitizer.bypassSecurityTrustHtml(SEARCH_ICON));
     iconRegistry.addSvgIconLiteral('collabrator-icon', sanitizer.bypassSecurityTrustHtml(COLLABRATOR_ICON));
@@ -32,12 +39,86 @@ export class NoteCardComponent implements OnInit{
 
   }
 
-  onArchiveClick(){
-    this.archiveNote.emit(this.noteDetails._id);
-    console.log(this.noteDetails._id);
+  handleNotesIconsClick(action: string, color: string = '#ffffff') {
+    if (action === 'color' && color) {
+      this.noteDetails.color = color;
+      this.notesService
+        .changeColorById('router', this.noteDetails._id, color)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    } 
+    else if (action === 'archive' || action === 'unarchive') {
+      this.notesService
+        .archiveNoteById('router', this.noteDetails._id)
+        .subscribe({
+          next: (res) => {
+            console.log('Archived successfully:', res);
+          },
+          error: (err) => {
+            console.log('Error archiving note:', err);
+          },
+        });
+    } else if (action === 'trash' || action === 'restore') {
+      this.notesService
+        .archiveNoteById('router', this.noteDetails._id)
+        .subscribe({
+          next: (res) => {
+            console.log('Archived successfully:', res);
+          },
+          error: (err) => {
+            console.log('Error archiving note:', err);
+          },
+        });
+    } else if (action === 'deleteForever') {
+      this.notesService
+        .deleteNoteById('notes', this.noteDetails._id)
+        .subscribe({
+          next: (res) => {
+            console.log('Deleted successfully:', res);
+          },
+          error: (err) => {
+            console.log('Error deleting note:', err);
+          },
+        });
+    }
+    this.updateList.emit({ action, data: this.noteDetails });
   }
+  handleEditNote() {
+    const dialogRef = this.dialog.open(AddnoteComponent, {
+      data: {
+        noteDetails: this.noteDetails
+      },
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (res: any) => {
+        if (res) {
+          
+          this.noteDetails = res;
 
-  onDeleteClick(){
-    this.deleteNote.emit(this.noteDetails._id)
+          this.notesService.updateNoteById('router', this.noteDetails._id, this.noteDetails).subscribe({
+            next: (updateRes) => {
+              console.log('Note updated successfully:', updateRes);
+  
+             
+              this.updateList.emit({ action: 'edit', data: this.noteDetails });
+            },
+            error: (err) => {
+              console.error('Error updating note:', err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Dialog closed with error:', err);
+      }
+    });
   }
+  
 }
