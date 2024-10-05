@@ -24,7 +24,7 @@ export class DashboardContainerComponent implements OnInit {
   ngOnInit(): void {
   }
   toggleDrawer() {
-    //this.drawer.toggle();
+    this.drawer.toggle();
     this.drawerOpened = !this.drawerOpened;
   }
 
