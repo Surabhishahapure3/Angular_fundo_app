@@ -28,6 +28,8 @@ import { MatCardModule } from '@angular/material/card';
 import { TrimPipe } from './pipe/trim.pipe';
 import { TrashContainerComponent } from './components/trash-container/trash-container.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatCardModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [],   
   bootstrap: [AppComponent] 

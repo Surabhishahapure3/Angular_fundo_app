@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NotesService } from 'src/services/note-service/notes.service';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/services/data-service/data.service';
@@ -12,6 +12,7 @@ export class ArchieveContainerComponent implements OnInit {
   notesList: any[] = [];
   searchQuery: string = '';
   subscription!: Subscription;
+  
   
   constructor(private noteService: NotesService, private dataService:DataService) { }
 
@@ -63,4 +64,6 @@ export class ArchieveContainerComponent implements OnInit {
       this.subscription.unsubscribe();
     }
   }
+
+  
 }

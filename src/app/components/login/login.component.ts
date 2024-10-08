@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/services/user-service/user.service';
 // import { Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted:boolean=false;
 
-  constructor(private userService: UserService, private router: Router, private formBuilder:FormBuilder){}
+  constructor(private userService: UserService, private router: Router, private formBuilder:FormBuilder,private snackBar: MatSnackBar){}
 
   ngOnInit():void{
     this.loginForm = this.formBuilder.group({
@@ -48,18 +49,24 @@ export class LoginComponent implements OnInit {
             // console.log("login name",name);
             // console.log("login email",email)
             // this.router.navigate(['/notes']);
-            // console.log("data",res.data)
+            console.log("data",res.data)
               console.log('Token stored in localStorage:', token);
+              this.snackBar.open('Login successfully!', 'Close', { // Show success message
+                duration: 3000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+
               this.router.navigate(['/notes']);
             } else {
               console.error('No token found in response:', res);
             }
           } else {
-            console.error('Login failed:', res.message || 'Unknown error'); // Handle unsuccessful login
+            console.error('Login failed:', res.message || 'Unknown error'); 
           }
         },
         error: (err) => {
-          console.error('Login error:', err); // Handle errors
+          console.error('Login error:', err); 
         },
       });
     }

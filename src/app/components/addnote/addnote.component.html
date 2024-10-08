@@ -8,16 +8,22 @@
         svgIcon="tick"
         aria-hidden="false"
         aria-label="tick"
+        matTooltip="Tick Icon" 
+        matTooltipPosition="below" 
       ></mat-icon>
       <mat-icon
         svgIcon="brush"
         aria-hidden="false"
         aria-label="brush"
+        matTooltip="Brush Icon" 
+        matTooltipPosition="below" 
       ></mat-icon>
       <mat-icon
         svgIcon="Image"
         aria-hidden="false"
         aria-label="Image"
+        matTooltip="Image Icon" 
+        matTooltipPosition="below" 
       ></mat-icon>
     </div>
   </div>
@@ -30,6 +36,8 @@
             svgIcon="pin-icon"
             aria-hidden="false"
             aria-label="pin icon"
+            matTooltip="pin icon" 
+        matTooltipPosition="below"
           ></mat-icon>
       </div>
       <textarea [(ngModel)]="description" placeholder="Add a note..."></textarea> 
@@ -38,42 +46,58 @@
             svgIcon="reminder-icon"
             aria-hidden="false"
             aria-label="reminder icon"
+            matTooltip="reminder icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="collabrator-icon"
             aria-hidden="false"
             aria-label="collabrator icon"
+            matTooltip="collabrator icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="color-palatte-icon"
             aria-hidden="false"
             aria-label="color pallat icon"
             [matMenuTriggerFor]="colorPalate"
+            matTooltip="color pallat icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="img-icon"
             aria-hidden="false"
             aria-label="image icon"
+            matTooltip="image icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="archive-icon"
             aria-hidden="false"
             aria-label="archive icon"
+            matTooltip="archive icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="more-icon"
             aria-hidden="false"
             aria-label="more icon"
+            matTooltip="more icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="undo-icon"
             aria-hidden="false"
             aria-label="undo icon"
+            matTooltip="undo icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-icon
             svgIcon="redo-icon"
             aria-hidden="false"
             aria-label="redo icon"
+            matTooltip="redo icon" 
+        matTooltipPosition="below"
           ></mat-icon>
           <mat-menu #colorPalate="matMenu">
             <div class="color-palate-cnt">

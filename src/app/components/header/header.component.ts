@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SEARCH_ICON, MENU_ICON,  SETTING_ICON, REFRESH_ICON,LIST_VIEW_ICON } from 'src/assets/svg-icons';
 import { DataService } from 'src/services/data-service/data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
   userEmail: string = '';
   // console.log(userName,userEmail);
-  constructor( iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private dataService: DataService, private router: Router) {
+  constructor( iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private dataService: DataService, private router: Router,private snackBar: MatSnackBar ) {
     iconRegistry.addSvgIconLiteral('main-menu', sanitizer.bypassSecurityTrustHtml(MENU_ICON));
     iconRegistry.addSvgIconLiteral('search-icon', sanitizer.bypassSecurityTrustHtml(SEARCH_ICON));
     iconRegistry.addSvgIconLiteral('refresh-icon', sanitizer.bypassSecurityTrustHtml(REFRESH_ICON));
@@ -40,6 +41,11 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     localStorage.clear();
+    this.snackBar.open('LogOut successfully!', 'Close', { 
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.router.navigate(['/'])
   }
   handleSearchQuery(){

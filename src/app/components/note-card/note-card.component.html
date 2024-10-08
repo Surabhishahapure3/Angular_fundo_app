@@ -9,6 +9,8 @@
       aria-hidden="false"
       aria-label="reminder icon"
       *ngIf="container === 'notes' || container === 'archive'"
+      matTooltip="remind me" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Collaborator Icon -->
@@ -17,6 +19,8 @@
       aria-hidden="false"
       aria-label="collabrator icon"
       *ngIf="container === 'notes' || container === 'archive'"
+      matTooltip="Collabrator" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Color Palette Icon with Menu Trigger -->
@@ -26,6 +30,8 @@
       aria-label="color palette icon"
       *ngIf="container === 'notes' || container === 'archive'"
       [matMenuTriggerFor]="colorPalate"
+      matTooltip="background options" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Image Icon -->
@@ -34,6 +40,8 @@
       aria-hidden="false"
       aria-label="image icon"
       *ngIf="container === 'notes' || container === 'archive'"
+      matTooltip="Add image" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Archive Icon -->
@@ -43,6 +51,8 @@
       aria-hidden="false"
       aria-label="archive icon"
       (click)="handleNotesIconsClick('archive')"
+      matTooltip="Archive" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Unarchive Icon -->
@@ -52,6 +62,8 @@
       aria-hidden="false"
       aria-label="unarchive icon"
       (click)="handleNotesIconsClick('unarchive')"
+      matTooltip="Unarchive" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- More Icon -->
@@ -61,6 +73,8 @@
       svgIcon="more-icon"
       aria-hidden="false"
       aria-label="more icon"
+      matTooltip="more" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Delete Forever Icon (for Trash) -->
@@ -70,6 +84,8 @@
       aria-hidden="false"
       aria-label="delete forever icon"
       (click)="handleNotesIconsClick('deleteForever')"
+      matTooltip="delete forever" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- Restore Icon (for Trash) -->
@@ -79,19 +95,34 @@
       aria-hidden="false"
       aria-label="restore icon"
       (click)="handleNotesIconsClick('restore')"
+      matTooltip="restore" 
+        matTooltipPosition="below"
     ></mat-icon>
 
     <!-- More Menu -->
     <mat-menu #moreMenu="matMenu">
       <button mat-menu-item (click)="handleNotesIconsClick('trash')">
-        <span>Trash</span>
+        <span class="menuList">Delete note</span>
       </button>
-      <button mat-menu-item disabled>
-        <span>Check voice mail</span>
+      <button mat-menu-item >
+        <span class="menuList">Add label</span>
       </button>
-      <button mat-menu-item>
-        <span>Disable alerts</span>
+      <button mat-menu-item >
+        <span class="menuList">Add drawing</span>
       </button>
+      <button mat-menu-item >
+        <span class="menuList">Make a copy</span>
+      </button>
+      <button mat-menu-item >
+        <span class="menuList">Show tick boxes</span>
+      </button>
+      <button mat-menu-item >
+        <span class="menuList">Copy to Google Docs</span>
+      </button>
+      <button mat-menu-item >
+        <span class="menuList">Version history</span>
+      </button>
+      
     </mat-menu>
 
     <!-- Color Palette Menu -->

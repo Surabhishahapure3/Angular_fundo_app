@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-register',
@@ -10,9 +11,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   registerForm!: FormGroup;
   submitted:boolean=false;
+  // signUpForm!: FormGroup;
+  register: boolean = false;
 
 
-  constructor(private formBuilder:FormBuilder,private router:Router){}
+  constructor(private formBuilder:FormBuilder,private router:Router,private userService: UserService ){}
 
   ngOnInit():void{
     this.registerForm = this.formBuilder.group({
@@ -32,14 +35,31 @@ export class RegisterComponent {
   }
 
 
-  handleRegister(){
-    this.submitted=!this.submitted;
-    if(this.registerForm.valid){
-      console.log("resgistration done successfully")
-      this.router.navigate(['/login'])
+  handleRegister() {
+    this.register = true;
+    if (this.registerForm.invalid) {
+      return;
     }
-  }
 
+    console.log(this.registerForm.value);
+    const { firstName, lastName, userName, password } = this.registerForm.value;
+
+    this.userService.loginSignUpApiCall('users/register', {
+      firstName,
+      lastName,
+      email:userName,
+      password
+    }).subscribe({
+      next: (res: any) => {
+        console.log('API response:', res);
+        this.router.navigate(['/login']);
+        // this.snackbarService.showMessage('User signed up successfully!');
+      },
+      error: (err) => {
+        console.log('API error:', err);
+      }
+    });
+  }
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;

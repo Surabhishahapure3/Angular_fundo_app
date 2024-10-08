@@ -1,3 +1,4 @@
+<!-- <app-addnote></app-addnote> -->
 <div *ngFor="let noteObj of notesList">
     <app-note-card [container]="'trash'" [noteDetails]="noteObj"
     (updateList)="handleUpdateNotesList($event)"
