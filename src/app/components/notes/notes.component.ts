@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DataService } from 'src/services/data-service/data.service';
 import { NotesService } from 'src/services/note-service/notes.service';
+import { Note, EventAction, ApiResponse } from 'src/app/Interfaces/note.interface';
 
 @Component({
   selector: 'app-notes',
@@ -9,7 +10,7 @@ import { NotesService } from 'src/services/note-service/notes.service';
   styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
-  notesList: any[] = [];
+  notesList: Note[] = [];
   searchQuery: string = '';
   subscription!: Subscription;
   
@@ -21,7 +22,7 @@ export class NotesComponent implements OnInit {
     console.log('JWT from local storage:', token);
     this.fetchNotes();
     this.dataService.curSearchQuery.subscribe({
-      next: (data) => {
+      next: (data:string) => {
         this.searchQuery = data;
       },
     });
@@ -31,7 +32,7 @@ export class NotesComponent implements OnInit {
     this.noteService.getNotesApiCall('router/all').subscribe({
       next: (res: any) => {
         this.notesList = res.data.filter(
-          (note: any) => !note.isArchive && !note.isTrash
+          (note: Note) => !note.isArchive && !note.isTrash
         );
       },
       error: (err: any) => {
